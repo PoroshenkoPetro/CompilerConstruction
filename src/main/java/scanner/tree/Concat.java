@@ -2,13 +2,17 @@ package scanner.tree;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import scanner.visitors.EmptyVisitor;
+import scanner.visitors.FirstVisitor;
+import scanner.visitors.LastVisitor;
+import scanner.visitors.NextVisitor;
 
 public class Concat extends RegexTree {
 
     private final RegexTree left;
     private final RegexTree right;
 
-    public Concat(RegexTree left, RegexTree right) {
+    public Concat(RegexTree parent, RegexTree left, RegexTree right) {
+        super(parent);
         this.left = left;
         this.right = right;
     }
@@ -41,5 +45,20 @@ public class Concat extends RegexTree {
     @Override
     public void calculateEmpty(EmptyVisitor visitor) {
         setEmpty(visitor.visit(this));
+    }
+
+    @Override
+    public void calculateFirst(FirstVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void calculateNext(NextVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void calculateLast(LastVisitor visitor) {
+        visitor.visit(this);
     }
 }
