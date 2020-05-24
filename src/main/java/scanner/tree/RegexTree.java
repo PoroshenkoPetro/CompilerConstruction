@@ -12,8 +12,9 @@ public abstract class RegexTree {
 
     private boolean isEmpty;
     protected final RegexTree parent;
-
     private Set<Integer> first;
+    private Set<Integer> next;
+    private Set<Integer> last;
 
     protected RegexTree(RegexTree parent) {
         this.parent = parent;
@@ -25,6 +26,14 @@ public abstract class RegexTree {
 
     public void setFirst(Set<Integer> first) {
         this.first = first;
+    }
+
+    public Set<Integer> getNext() {
+        return next;
+    }
+
+    public Set<Integer> getLast() {
+        return last;
     }
 
     public boolean isEmpty() {

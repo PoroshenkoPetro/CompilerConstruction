@@ -14,6 +14,7 @@ public class FirstVisitor {
     }
 
     public void visit(Star node) {
+        node.getR().calculateFirst(this);
         node.getFirst().addAll(node.getR().getFirst());
     }
 
