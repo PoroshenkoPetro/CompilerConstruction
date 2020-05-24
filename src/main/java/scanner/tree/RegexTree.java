@@ -1,10 +1,16 @@
 package scanner.tree;
 
+import scanner.Indexer;
 import scanner.visitors.EmptyVisitor;
 
 public abstract class RegexTree {
 
+    private int index;
     private boolean isEmpty;
+
+    public RegexTree() {
+        index = Indexer.instance.nextIndex();
+    }
 
     public boolean isEmpty() {
         return isEmpty;
