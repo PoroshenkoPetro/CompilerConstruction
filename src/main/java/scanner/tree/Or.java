@@ -6,6 +6,9 @@ import scanner.visitors.FirstVisitor;
 import scanner.visitors.LastVisitor;
 import scanner.visitors.NextVisitor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Or extends RegexTree {
 
     private final RegexTree left;
@@ -31,6 +34,11 @@ public class Or extends RegexTree {
         }
         Or concat = (Or)obj;
         return concat.getLeft().equals(this.getLeft()) && concat.getRight().equals(this.getRight());
+    }
+
+    @Override
+    public String toString() {
+        return '(' + left.toString() + " | " + right.toString() + ')';
     }
 
     public RegexTree getLeft() {
@@ -61,4 +69,13 @@ public class Or extends RegexTree {
         visitor.visit(this);
     }
 
+    @Override
+    public Set<Leaf> getLeaves() {
+        Set<Leaf> left = this.left.getLeaves();
+        Set<Leaf> right = this.right.getLeaves();
+        Set<Leaf> set = new HashSet<>();
+        set.addAll(left);
+        set.addAll(right);
+        return set;
+    }
 }

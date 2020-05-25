@@ -6,6 +6,10 @@ import scanner.visitors.FirstVisitor;
 import scanner.visitors.LastVisitor;
 import scanner.visitors.NextVisitor;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Concat extends RegexTree {
 
     private final RegexTree left;
@@ -31,6 +35,11 @@ public class Concat extends RegexTree {
         }
         Concat concat = (Concat)obj;
         return concat.getLeft().equals(this.getLeft()) && concat.getRight().equals(this.getRight());
+    }
+
+    @Override
+    public String toString() {
+        return '(' + left.toString() + " X " + right.toString() + ')';
     }
 
     public RegexTree getLeft() {
@@ -59,5 +68,12 @@ public class Concat extends RegexTree {
     @Override
     public void calculateLast(LastVisitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public Set<Leaf> getLeaves() {
+        Set<Leaf> left = this.left.getLeaves();
+        left.addAll(this.right.getLeaves());
+        return left;
     }
 }

@@ -6,6 +6,8 @@ import scanner.visitors.FirstVisitor;
 import scanner.visitors.LastVisitor;
 import scanner.visitors.NextVisitor;
 
+import java.util.Set;
+
 public class Star extends RegexTree {
 
     private final RegexTree r;
@@ -36,6 +38,11 @@ public class Star extends RegexTree {
     }
 
     @Override
+    public String toString() {
+        return '(' + r.toString() + ")*";
+    }
+
+    @Override
     public void calculateEmpty(EmptyVisitor visitor) {
         setEmpty(visitor.visit(this));
     }
@@ -53,6 +60,11 @@ public class Star extends RegexTree {
     @Override
     public void calculateLast(LastVisitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public Set<Leaf> getLeaves() {
+        return r.getLeaves();
     }
 
 }

@@ -7,28 +7,19 @@ import scanner.visitors.FirstVisitor;
 import scanner.visitors.LastVisitor;
 import scanner.visitors.NextVisitor;
 
-public class Letter extends RegexTree {
+import java.util.HashSet;
+import java.util.Set;
 
-    private final char letter;
-    private final int index;
+public class Letter extends Leaf {
 
     public Letter(char letter) {
-        this.index = Indexer.instance.nextIndex();
-        this.letter = letter;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public char getLetter() {
-        return letter;
+        super(letter);
     }
 
     @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
-        builder.append(letter);
+        builder.append(getIndex());
         return builder.toHashCode();
     }
 
@@ -38,7 +29,7 @@ public class Letter extends RegexTree {
             return false;
         }
         Letter letter = (Letter) obj;
-        return letter.getLetter() == this.getLetter();
+        return letter.getIndex() == this.getIndex();
     }
 
     @Override
@@ -53,11 +44,17 @@ public class Letter extends RegexTree {
 
     @Override
     public void calculateNext(NextVisitor visitor) {
-        visitor.visit(this);
     }
 
     @Override
     public void calculateLast(LastVisitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public Set<Leaf> getLeaves() {
+        HashSet<Leaf> leaves = new HashSet<>();
+        leaves.add(this);
+        return leaves;
     }
 }

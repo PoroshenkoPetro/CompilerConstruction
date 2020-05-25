@@ -9,12 +9,12 @@ public class EmptyVisitor {
     }
 
     public boolean visit(Letter node) {
-        return true;
+        return false;
     }
 
     public boolean visit(Concat node) {
         RegexTree left = node.getLeft();
-        RegexTree right = node.getLeft();
+        RegexTree right = node.getRight();
         left.calculateEmpty(this);
         right.calculateEmpty(this);
         return left.isEmpty() && right.isEmpty();
@@ -22,12 +22,12 @@ public class EmptyVisitor {
 
     public boolean visit(Star node) {
         node.getR().calculateEmpty(this);
-        return node.getR().isEmpty();
+        return true;
     }
 
     public boolean visit(Or node) {
         RegexTree left = node.getLeft();
-        RegexTree right = node.getLeft();
+        RegexTree right = node.getRight();
         left.calculateEmpty(this);
         right.calculateEmpty(this);
         return left.isEmpty() || right.isEmpty();

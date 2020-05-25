@@ -13,7 +13,6 @@ public abstract class RegexTree {
 
     private boolean isEmpty;
 
-    protected RegexTree parent;
     private Set<Integer> first = new HashSet<Integer>();
     private Set<Integer> next = new HashSet<Integer>();
     private Set<Integer> last = new HashSet<Integer>();
@@ -42,22 +41,19 @@ public abstract class RegexTree {
         this.isEmpty = value;
     }
 
-    public RegexTree getParent() {
-        return parent;
-    }
-
-    public void setParent(RegexTree parent) {
-        this.parent = parent;
-    }
-
     @Override
     public abstract int hashCode();
 
     @Override
     public abstract boolean equals(Object obj);
 
+    @Override
+    public abstract String toString();
+
     public abstract void calculateEmpty(EmptyVisitor visitor);
     public abstract void calculateFirst(FirstVisitor visitor);
     public abstract void calculateNext(NextVisitor visitor);
     public abstract void calculateLast(LastVisitor visitor);
+
+    public abstract Set<Leaf> getLeaves();
 }

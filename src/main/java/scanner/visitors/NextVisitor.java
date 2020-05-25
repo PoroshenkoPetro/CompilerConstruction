@@ -8,12 +8,10 @@ public class NextVisitor {
         RegexTree left = node.getLeft();
         RegexTree right = node.getRight();
         left.getNext().addAll(right.getFirst());
-        if (node.getParent() != null) {
-            if (right.isEmpty()) {
-                left.getNext().addAll(node.getParent().getFirst());
-            }
-            right.getNext().addAll(node.getParent().getFirst());
+        if (right.isEmpty()) {
+            left.getNext().addAll(node.getNext());
         }
+        right.getNext().addAll(node.getNext());
         left.calculateNext(this);
         right.calculateNext(this);
     }
@@ -21,31 +19,15 @@ public class NextVisitor {
     public void visit(Or node) {
         RegexTree left = node.getLeft();
         RegexTree right = node.getRight();
-        if (node.getParent() != null) {
-            left.getNext().addAll(node.getParent().getFirst());
-            right.getNext().addAll(node.getParent().getFirst());
-        }
+        left.getNext().addAll(node.getNext());
+        right.getNext().addAll(node.getNext());
         left.calculateNext(this);
         right.calculateNext(this);
     }
 
-    public void visit(Epsilon node) {
-        if (node.getParent() != null) {
-            node.getNext().addAll(node.getParent().getFirst());
-        }
-    }
-
-    public void visit(Letter node) {
-        if (node.getParent() != null) {
-            node.getNext().addAll(node.getParent().getFirst());
-        }
-    }
-
     public void visit(Star node) {
-        if (node.getParent() != null) {
-            node.getNext().addAll(node.getParent().getFirst());
-        }
-        node.getNext().addAll(node.getR().getFirst());
+        node.getR().getNext().addAll(node.getNext());
+        node.getR().getNext().addAll(node.getR().getFirst());
         node.getR().calculateNext(this);
     }
 

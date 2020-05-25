@@ -20,7 +20,7 @@ public class FirstVisitor {
 
     public void visit(Concat node) {
         RegexTree left = node.getLeft();
-        RegexTree right = node.getLeft();
+        RegexTree right = node.getRight();
         left.calculateFirst(this);
         right.calculateFirst(this);
         node.getFirst().addAll(left.getFirst());
@@ -31,7 +31,7 @@ public class FirstVisitor {
 
     public void visit(Or node) {
         RegexTree left = node.getLeft();
-        RegexTree right = node.getLeft();
+        RegexTree right = node.getRight();
         left.calculateFirst(this);
         right.calculateFirst(this);
         node.getFirst().addAll(left.getFirst());

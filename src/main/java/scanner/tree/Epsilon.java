@@ -6,18 +6,34 @@ import scanner.visitors.FirstVisitor;
 import scanner.visitors.LastVisitor;
 import scanner.visitors.NextVisitor;
 
-public class Epsilon extends RegexTree {
+import java.util.HashSet;
+import java.util.Set;
+
+public class Epsilon extends Leaf {
+
+    public Epsilon() {
+        super('0');
+    }
 
     @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
-        builder.append(true);
+        builder.append(getIndex());
         return builder.toHashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Epsilon;
+        if (!(obj instanceof Epsilon)) {
+            return false;
+        }
+        Epsilon epsilon = (Epsilon) obj;
+        return epsilon.getIndex() == this.getIndex();
+    }
+
+    @Override
+    public String toString() {
+        return "epsilon";
     }
 
     @Override
@@ -32,12 +48,17 @@ public class Epsilon extends RegexTree {
 
     @Override
     public void calculateNext(NextVisitor visitor) {
-        visitor.visit(this);
     }
 
     @Override
     public void calculateLast(LastVisitor visitor) {
-        visitor.visit(this);
+    }
+
+    @Override
+    public Set<Leaf> getLeaves() {
+        Set<Leaf> set = new HashSet<>();
+        set.add(this);
+        return set;
     }
 
 }

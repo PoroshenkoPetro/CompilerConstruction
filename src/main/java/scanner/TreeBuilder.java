@@ -25,9 +25,7 @@ public class TreeBuilder {
     public TreeBuilder or() {
         RegexTree left = treeNodes.pop();
         RegexTree right = treeNodes.pop();
-        RegexTree root = new Or(left, right);
-        left.setParent(root);
-        right.setParent(root);
+        RegexTree root = new Or(right, left);
         treeNodes.push(root);
         return this;
     }
@@ -35,9 +33,7 @@ public class TreeBuilder {
     public TreeBuilder concat() {
         RegexTree left = treeNodes.pop();
         RegexTree right = treeNodes.pop();
-        RegexTree root = new Concat(left, right);
-        left.setParent(root);
-        right.setParent(root);
+        RegexTree root = new Concat(right, left);
         treeNodes.push(root);
         return this;
     }
@@ -45,7 +41,6 @@ public class TreeBuilder {
     public TreeBuilder star() {
         RegexTree r = treeNodes.pop();
         RegexTree root = new Star(r);
-        r.setParent(root);
         treeNodes.push(root);
         return this;
     }
