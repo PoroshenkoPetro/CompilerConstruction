@@ -6,19 +6,17 @@ import scanner.visitors.FirstVisitor;
 import scanner.visitors.LastVisitor;
 import scanner.visitors.NextVisitor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class RegexTree {
 
     private boolean isEmpty;
-    protected final RegexTree parent;
-    private Set<Integer> first;
-    private Set<Integer> next;
-    private Set<Integer> last;
 
-    protected RegexTree(RegexTree parent) {
-        this.parent = parent;
-    }
+    protected RegexTree parent;
+    private Set<Integer> first = new HashSet<Integer>();
+    private Set<Integer> next = new HashSet<Integer>();
+    private Set<Integer> last = new HashSet<Integer>();
 
     public Set<Integer> getFirst() {
         return first;
@@ -46,6 +44,10 @@ public abstract class RegexTree {
 
     public RegexTree getParent() {
         return parent;
+    }
+
+    public void setParent(RegexTree parent) {
+        this.parent = parent;
     }
 
     @Override

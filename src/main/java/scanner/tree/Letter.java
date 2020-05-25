@@ -12,8 +12,7 @@ public class Letter extends RegexTree {
     private final char letter;
     private final int index;
 
-    public Letter(char letter, RegexTree parent) {
-        super(parent);
+    public Letter(char letter) {
         this.index = Indexer.instance.nextIndex();
         this.letter = letter;
     }

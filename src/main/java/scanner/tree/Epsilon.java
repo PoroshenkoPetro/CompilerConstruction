@@ -8,10 +8,6 @@ import scanner.visitors.NextVisitor;
 
 public class Epsilon extends RegexTree {
 
-    public Epsilon(RegexTree parent) {
-        super(parent);
-    }
-
     @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();

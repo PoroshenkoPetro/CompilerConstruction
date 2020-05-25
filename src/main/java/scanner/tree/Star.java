@@ -10,9 +10,8 @@ public class Star extends RegexTree {
 
     private final RegexTree r;
 
-    public Star(RegexTree r, RegexTree parent)
+    public Star(RegexTree r)
     {
-        super(parent);
         this.r = r;
     }
 

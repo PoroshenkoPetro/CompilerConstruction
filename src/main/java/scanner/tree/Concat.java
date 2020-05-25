@@ -11,8 +11,7 @@ public class Concat extends RegexTree {
     private final RegexTree left;
     private final RegexTree right;
 
-    public Concat(RegexTree parent, RegexTree left, RegexTree right) {
-        super(parent);
+    public Concat(RegexTree left, RegexTree right) {
         this.left = left;
         this.right = right;
     }

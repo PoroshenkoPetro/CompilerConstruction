@@ -23,17 +23,30 @@ public class TreeBuilder {
     }
 
     public TreeBuilder or() {
-        treeNodes.push(new Or(treeNodes.pop(), treeNodes.pop()));
+        RegexTree left = treeNodes.pop();
+        RegexTree right = treeNodes.pop();
+        RegexTree root = new Or(left, right);
+        left.setParent(root);
+        right.setParent(root);
+        treeNodes.push(root);
         return this;
     }
 
     public TreeBuilder concat() {
-        treeNodes.push(new Concat(treeNodes.pop(), treeNodes.pop()));
+        RegexTree left = treeNodes.pop();
+        RegexTree right = treeNodes.pop();
+        RegexTree root = new Concat(left, right);
+        left.setParent(root);
+        right.setParent(root);
+        treeNodes.push(root);
         return this;
     }
 
     public TreeBuilder star() {
-        treeNodes.push(new Star(treeNodes.pop()));
+        RegexTree r = treeNodes.pop();
+        RegexTree root = new Star(r);
+        r.setParent(root);
+        treeNodes.push(root);
         return this;
     }
 
